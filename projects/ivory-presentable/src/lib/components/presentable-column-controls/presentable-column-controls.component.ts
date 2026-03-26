@@ -1,11 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ColumnSizingService } from '../../services/column-sizing.service';
 
 @Component({
   selector: 'presentable-column-controls',
   templateUrl: './presentable-column-controls.component.html',
-  styleUrl: './presentable-column-controls.component.scss'
+  styleUrl: './presentable-column-controls.component.scss',
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class PresentableColumnControlsComponent {
 

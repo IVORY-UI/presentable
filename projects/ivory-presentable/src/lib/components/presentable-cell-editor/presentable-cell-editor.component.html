@@ -1,0 +1,69 @@
+<div class="ivpt-cell-editor">
+  @switch (editorConfig.type) {
+    @case ('text') {
+      <input
+        #editorInput
+        type="text"
+        class="ivpt-editor-input"
+        [(ngModel)]="editValue"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      />
+    }
+    @case ('number') {
+      <input
+        #editorInput
+        type="number"
+        class="ivpt-editor-input"
+        [(ngModel)]="editValue"
+        [min]="editorConfig.min ?? null"
+        [max]="editorConfig.max ?? null"
+        [step]="editorConfig.step ?? 1"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      />
+    }
+    @case ('date') {
+      <input
+        #editorInput
+        type="date"
+        class="ivpt-editor-input"
+        [(ngModel)]="editValue"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      />
+    }
+    @case ('select') {
+      <select
+        #editorInput
+        class="ivpt-editor-select"
+        [(ngModel)]="editValue"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      >
+        @for (option of editorConfig.options; track option) {
+          <option [value]="option">{{option}}</option>
+        }
+      </select>
+    }
+    @case ('checkbox') {
+      <input
+        #editorInput
+        type="checkbox"
+        class="ivpt-editor-checkbox"
+        [(ngModel)]="editValue"
+        (change)="saveEdit()"
+      />
+    }
+    @default {
+      <input
+        #editorInput
+        type="text"
+        class="ivpt-editor-input"
+        [(ngModel)]="editValue"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
+      />
+    }
+  }
+</div>

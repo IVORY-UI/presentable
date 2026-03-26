@@ -1,3 +1,5 @@
+import { CellEditorConfig } from './cell-editor.interface';
+
 export interface PresentableColumn {
   title?: string;
   field?: string;
@@ -9,4 +11,6 @@ export interface PresentableColumn {
   width?: number | string;
   minWidth?: number | string;
   maxWidth?: number | string;
+  editable?: boolean;
+  editor?: CellEditorConfig;
 }

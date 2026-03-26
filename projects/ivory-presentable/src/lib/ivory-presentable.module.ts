@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
 /* Components */
 import { IvoryPresentableComponent } from './ivory-presentable.component';
 import { PresentableRowComponent } from './components/presentable-row/presentable-row.component';
+import { PresentableCellEditorComponent } from './components/presentable-cell-editor/presentable-cell-editor.component';
 import { PresentableColumnResizerComponent } from './components/presentable-column-resizer/presentable-column-resizer.component';
 import { PresentableColumnControlsComponent } from './components/presentable-column-controls/presentable-column-controls.component';
 import { PresentablePaginatorComponent } from './components/presentable-paginator/presentable-paginator.component';
@@ -17,12 +16,9 @@ import { ColumnResizeDirective } from './components/presentable-column-resizer/p
 
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule
-  ],
-  declarations: [
     IvoryPresentableComponent,
     PresentableRowComponent,
+    PresentableCellEditorComponent,
     PresentableTextFilterComponent,
     PresentableOptionsFilterComponent,
     PresentableColumnResizerComponent,
@@ -34,12 +30,14 @@ import { ColumnResizeDirective } from './components/presentable-column-resizer/p
   exports: [
     IvoryPresentableComponent,
     PresentableRowComponent,
+    PresentableCellEditorComponent,
     PresentableTextFilterComponent,
     PresentableOptionsFilterComponent,
     PresentableColumnResizerComponent,
     PresentableColumnControlsComponent,
     PresentablePaginatorComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    ColumnResizeDirective
   ]
 })
 export class IvoryPresentableModule { }

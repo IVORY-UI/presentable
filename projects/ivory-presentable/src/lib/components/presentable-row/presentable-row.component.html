@@ -21,11 +21,24 @@
     @if (colItem.visible) {
       <div 
         class="ivpt-content-cell" 
+        [class.ivpt-cell-editable]="cellEditingEnabled && colItem.editable"
+        [class.ivpt-cell-editing]="isCellEditing(colItem.field)"
         role="gridcell" 
         attr.aria-colindex="{{i+1}}" 
         [style.width.px]="colItem.width"
+        (dblclick)="startCellEdit(colItem, $event)"
       >
-        {{rowData[colItem.field]}}
+        @if (isCellEditing(colItem.field)) {
+          <presentable-cell-editor
+            [value]="rowData[colItem.field]"
+            [editorConfig]="colItem.editor || { type: 'text' }"
+            [field]="colItem.field"
+            (editComplete)="onCellEditComplete(colItem, $event)"
+            (editCancel)="onCellEditCancel()"
+          ></presentable-cell-editor>
+        } @else {
+          {{rowData[colItem.field]}}
+        }
       </div>
     }  
   }

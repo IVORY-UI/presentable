@@ -89,8 +89,10 @@
             [columns]="columnDefs"
             [rowIndex]="i"
             [rowSelectionEnabled]="recordSelection"
+            [cellEditingEnabled]="cellEditing"
             [rowData]="dataItem"
             (onSelection)="whenSelectRow($event)"
+            (onCellEdit)="onCellEdit($event)"
           ></presentable-row>
         }
       </div>

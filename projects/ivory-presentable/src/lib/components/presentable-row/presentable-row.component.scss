@@ -14,3 +14,38 @@
     flex-shrink: 0;
   }
 }
+
+.ivpt-cell-editable {
+  cursor: pointer;
+  position: relative;
+  
+  &:hover {
+    background-color: #f0f8ff;
+    outline: 1px solid #e0e0e0;
+  }
+  
+  &::after {
+    content: '✎';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 10px;
+    color: #999;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.ivpt-cell-editing {
+  padding: 0 !important;
+  background-color: #fff;
+  outline: 2px solid #4CAF50;
+  
+  &::after {
+    display: none;
+  }
+}

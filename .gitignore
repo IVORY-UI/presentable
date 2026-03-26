@@ -4,6 +4,10 @@
 # Dependencies
 /node_modules
 
+# Bundle
+/dist
+
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

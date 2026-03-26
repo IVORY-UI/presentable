@@ -10,6 +10,8 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { delay } from "rxjs";
 
 import { PRESENTABLE_CONFIG } from "./config/config";
@@ -18,11 +20,34 @@ import { PageManagerService } from "./services/page-manager.service";
 import { ColumnSizingService } from "./services/column-sizing.service";
 import { ElementManagerService } from "./services/element-manager.service";
 import { FilterManagerService } from "./services/filter-manager.service";
+import { PresentableRowComponent } from './components/presentable-row/presentable-row.component';
+import { PresentableCellEditorComponent } from './components/presentable-cell-editor/presentable-cell-editor.component';
+import { PresentableColumnResizerComponent } from './components/presentable-column-resizer/presentable-column-resizer.component';
+import { PresentableColumnControlsComponent } from './components/presentable-column-controls/presentable-column-controls.component';
+import { PresentablePaginatorComponent } from './components/presentable-paginator/presentable-paginator.component';
+import { PresentableTextFilterComponent } from './components/filters/presentable-text-filter/presentable-text-filter.component';
+import { PresentableOptionsFilterComponent } from './components/filters/presentable-options-filter/presentable-options-filter.component';
+import { ClickOutsideDirective } from './helpers/click-outside.directive';
+import { ColumnResizeDirective } from './components/presentable-column-resizer/presentable-column-resizer.directive';
 
 @Component({
   selector: "ivory-presentable",
   templateUrl: "./ivory-presentable.component.html",
   styleUrl: "./ivory-presentable.component.scss",
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    PresentableRowComponent,
+    PresentableCellEditorComponent,
+    PresentableColumnResizerComponent,
+    PresentableColumnControlsComponent,
+    PresentablePaginatorComponent,
+    PresentableTextFilterComponent,
+    PresentableOptionsFilterComponent,
+    ClickOutsideDirective,
+    ColumnResizeDirective
+  ]
 })
 export class IvoryPresentableComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -90,9 +115,13 @@ export class IvoryPresentableComponent
 
   @Input() recordSelection: boolean = false;
 
+  @Input() cellEditing: boolean = false;
+
   @Output() dataparams = new EventEmitter<any>();
 
   @Output() recordsSelected = new EventEmitter<any>();
+  
+  @Output() cellEdit = new EventEmitter<any>();
 
   @ViewChild("ivptSelectAll") ivptSelectAllRef!: ElementRef;
 
@@ -316,6 +345,10 @@ export class IvoryPresentableComponent
       }
     }
     this.recordsSelected.emit(this.selectedRows);
+  }
+  
+  onCellEdit(event: any) {
+    this.cellEdit.emit(event);
   }
 
   ngOnDestroy() {

@@ -6,7 +6,8 @@ import { ColumnSizingService } from '../../services/column-sizing.service';
 import { ElementManagerService } from '../../services/element-manager.service';
 
 @Directive({
-  selector: '[presentableColumnResizer]'
+  selector: '[presentableColumnResizer]',
+  standalone: true
 })
 export class ColumnResizeDirective implements OnInit, AfterViewInit{
 

@@ -14,10 +14,14 @@ describe('PresentableOptionsFilterComponent', () => {
     
     fixture = TestBed.createComponent(PresentableOptionsFilterComponent);
     component = fixture.componentInstance;
+    
+    // Set required input
+    component.column = { field: 'test', filterType: 'options' };
+    
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

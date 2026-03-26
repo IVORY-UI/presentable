@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { PageManagerService } from '../../services/page-manager.service';
 
@@ -11,9 +13,11 @@ type Page = {
 @Component({
   selector: 'presentable-paginator',
   templateUrl: './presentable-paginator.component.html',
-  styleUrl: './presentable-paginator.component.scss'
+  styleUrl: './presentable-paginator.component.scss',
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
-export class PresentablePaginatorComponent {
+export class PresentablePaginatorComponent implements OnInit {
 
   _showPagination: boolean = false;
   _records: any = {};

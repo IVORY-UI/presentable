@@ -8,7 +8,7 @@ describe('PresentableRowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PresentableRowComponent]
+      imports: [PresentableRowComponent]
     })
     .compileComponents();
     
@@ -17,7 +17,7 @@ describe('PresentableRowComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

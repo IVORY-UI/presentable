@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ColumnResizeDirective } from './presentable-column-resizer.directive';
 
 @Component({
   selector: 'presentable-column-resizer',
@@ -9,7 +11,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       (updatedColumnWidth)="updatedColumnWidth.emit(+$event)"
     ></div>
   `,
-  styleUrl: './presentable-column-resizer.component.scss'
+  styleUrl: './presentable-column-resizer.component.scss',
+  standalone: true,
+  imports: [CommonModule, ColumnResizeDirective]
 })
 export class PresentableColumnResizerComponent {
 

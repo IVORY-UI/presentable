@@ -22,7 +22,12 @@ Visit the below URL to check the demo and learn more about the usage.
 https://ivory-presentable.netlify.app/
 
 ## Compatibility & Browser Support
-Presentable perfectly works with Angular v17 and above. And works well with the latest versions of all major browsers.
+Presentable works with Angular v20 and above. The library has been upgraded to use standalone components and modern Angular features. It works well with the latest versions of all major browsers.
+
+### Angular Version Support
+- **Current Version**: Angular v20+
+- **Previous Versions**: For Angular v17-v19, use version 0.0.3
+- **Migration Guide**: See [ANGULAR_V20_MIGRATION.md](./ANGULAR_V20_MIGRATION.md) for upgrade instructions
 
 ## Contribute & Report
 Presentable is currently in active development and fine-tuning. If you encounter any issues, please report them here - https://github.com/IVORY-UI/ivory-presentable/issues. If you would like to contribute, kindly submit a pull request here - https://github.com/IVORY-UI/ivory-presentable/pulls. 

@@ -1,11 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+
+import { IvoryPresentableComponent } from '../../../ivory-presentable/src/public-api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  standalone: true,
+  imports: [CommonModule, IvoryPresentableComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'IVORY Presentable Demo';
@@ -28,12 +33,16 @@ export class AppComponent implements OnInit, OnDestroy {
       'visible': true,
       'width': '140',
       'hasFilter': true,
-      'filterType': 'text'
+      'filterType': 'text',
+      'editable': true,
+      'editor': { type: 'text' }
     },
     { 
       'field': 'age',
       'title': 'Age',
       'visible': true,
+      'editable': true,
+      'editor': { type: 'number', min: 10, max: 100 }
     },
     { 
       'field': 'country',
@@ -41,6 +50,72 @@ export class AppComponent implements OnInit, OnDestroy {
       'visible': true,
       'hasFilter': true,
       'filterType': 'options',
+      'editable': true,
+      'editor': { 
+        type: 'select',
+        options: [
+          'Armenia',
+          'Austria',
+          'Australia',
+          'Azerbaijan',
+          'Bahamas',
+          'Belarus',
+          'Bulgaria',
+          'Brazil',
+          'Canada',
+          'China',
+          'Chile',
+          'Colombia',
+          'Costa Rica',
+          'Croatia',
+          'Cuba',
+          'Czech Republic',
+          'Egypt',
+          'Ethiopia',
+          'Estonia',
+          'France',
+          'Finland',
+          'Germany',
+          'Georgia',
+          'Great Britain',
+          'Hungary',
+          'Italy',
+          'India',
+          'Iran',
+          'Jamaica',
+          'Japan',
+          'Kazahkstan',
+          'Kenya',
+          'Kyrgyzstan',
+          'Latvia',
+          'Lithuania',
+          'Mongolia',
+          'Morocco',
+          'Netherlands',
+          'New Zealand',
+          'Norway',
+          'Poland',
+          'Puerto Rico',
+          'Romania',
+          'Russia',
+          'Singapore',
+          'Slovakia',
+          'Slovenia',
+          'South Africa',
+          'South Korea',
+          'Spain',
+          'Sweden',
+          'Switzerland',
+          'Tajikistan',
+          'Trinidad and Tobago',
+          'Tunisia',
+          'Turkey',
+          'United States',
+          'Ukraine',
+          'Uzbekistan',
+          'Zimbabwe'
+        ]
+      },
       'filterOptions': [
         'Armenia',
         'Austria',
@@ -108,11 +183,15 @@ export class AppComponent implements OnInit, OnDestroy {
       'field': 'year', 
       'title': 'Year',
       'visible': true,
+      'editable': true,
+      'editor': { type: 'number', min: 1896, max: 2024 }
     },
     { 
       'field': 'date',
       'title': 'Date',
       'visible': true,
+      'editable': true,
+      'editor': { type: 'date' }
     },
     { 
       'field': 'sport',
@@ -191,6 +270,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public tablePageSize = 20;
   public tablePageSizeOptions = [20, 50, 100, 200];
   public tableSelection = true;
+  public tableCellEditing = true;
 
   ngOnInit() {
     this.getData();
@@ -208,6 +288,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onRecordsSelected(event: any) {
     console.log(event);
+  }
+  
+  onCellEdit(event: any) {
+    console.log('Cell edited:', event);
+    console.log(`Row ${event.rowIndex}: ${event.field} changed from "${event.oldValue}" to "${event.newValue}"`);
   }
 
   ngOnDestroy(): void {

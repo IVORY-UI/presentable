@@ -14,10 +14,14 @@ describe('PresentableTextFilterComponent', () => {
     
     fixture = TestBed.createComponent(PresentableTextFilterComponent);
     component = fixture.componentInstance;
+    
+    // Set required input
+    component.column = { field: 'test', filterType: 'text' };
+    
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

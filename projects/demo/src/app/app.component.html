@@ -9,6 +9,8 @@
     [recordsPerPage]="tablePageSize"
     [recordsPerPageOptions]="tablePageSizeOptions"
     [recordSelection]="tableSelection"
+    [cellEditing]="tableCellEditing"
     (recordsSelected)="onRecordsSelected($event)"
+    (cellEdit)="onCellEdit($event)"
   ></ivory-presentable>
 </div>
