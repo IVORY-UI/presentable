@@ -16,10 +16,11 @@ export class PresentableColumnControlsComponent {
   _showController: boolean = false;
   draggingItem: any;
   isDraggingOver = false;
+  draftColumns: any[] = [];
 
   @Input() columns: any;
 
-  @Output() updatedColumns = new EventEmitter; 
+  @Output() updatedColumns = new EventEmitter<any[]>();
 
   constructor(
     public columnSizing: ColumnSizingService
@@ -38,10 +39,10 @@ export class PresentableColumnControlsComponent {
   onDrop(event: DragEvent, index: number) {
     console.log('dropped', index);
     if (this.draggingItem) {
-      const draggingIndex = this.columns.indexOf(this.draggingItem);
+      const draggingIndex = this.draftColumns.indexOf(this.draggingItem);
       if (draggingIndex > -1) {
-        this.columns.splice(draggingIndex, 1);
-        this.columns.splice(index, 0, this.draggingItem);
+        this.draftColumns.splice(draggingIndex, 1);
+        this.draftColumns.splice(index, 0, this.draggingItem);
         this.draggingItem = null;
       }
     }
@@ -55,6 +56,18 @@ export class PresentableColumnControlsComponent {
 
   toggleColumn(column: any) {
     column.visible=!column.visible;
+  }
+
+  openColumnControls() {
+    this._showController = !this._showController;
+    if (this._showController) {
+      this.draftColumns = structuredClone(this.columns || []);
+    }
+  }
+
+  saveColumns() {
+    this.updatedColumns.emit(structuredClone(this.draftColumns));
+    this._showController = false;
     this.columnSizing.reCalcWidth.next(true);
   }
 

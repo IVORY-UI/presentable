@@ -21,14 +21,11 @@ import { ColumnSizingService } from "./services/column-sizing.service";
 import { ElementManagerService } from "./services/element-manager.service";
 import { FilterManagerService } from "./services/filter-manager.service";
 import { PresentableRowComponent } from './components/presentable-row/presentable-row.component';
-import { PresentableCellEditorComponent } from './components/presentable-cell-editor/presentable-cell-editor.component';
 import { PresentableColumnResizerComponent } from './components/presentable-column-resizer/presentable-column-resizer.component';
 import { PresentableColumnControlsComponent } from './components/presentable-column-controls/presentable-column-controls.component';
 import { PresentablePaginatorComponent } from './components/presentable-paginator/presentable-paginator.component';
 import { PresentableTextFilterComponent } from './components/filters/presentable-text-filter/presentable-text-filter.component';
 import { PresentableOptionsFilterComponent } from './components/filters/presentable-options-filter/presentable-options-filter.component';
-import { ClickOutsideDirective } from './helpers/click-outside.directive';
-import { ColumnResizeDirective } from './components/presentable-column-resizer/presentable-column-resizer.directive';
 
 @Component({
   selector: "ivory-presentable",
@@ -39,14 +36,11 @@ import { ColumnResizeDirective } from './components/presentable-column-resizer/p
     CommonModule,
     FormsModule,
     PresentableRowComponent,
-    PresentableCellEditorComponent,
     PresentableColumnResizerComponent,
     PresentableColumnControlsComponent,
     PresentablePaginatorComponent,
     PresentableTextFilterComponent,
-    PresentableOptionsFilterComponent,
-    ClickOutsideDirective,
-    ColumnResizeDirective
+    PresentableOptionsFilterComponent
   ]
 })
 export class IvoryPresentableComponent
@@ -213,6 +207,11 @@ export class IvoryPresentableComponent
 
   updatedColumnWidth(colItem: any, width: any) {
     colItem.width = width;
+  }
+
+  onColumnsUpdate(columns: any[]) {
+    this._columnDefs = this.columnSizing.processColumnOptions(columns);
+    this.columnSizing.reCalcWidth.next(true);
   }
 
   // Handles sorting

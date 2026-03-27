@@ -1,5 +1,5 @@
 <div class="ivpt-column-controller">
-  <button class="ivpt-column-controller-handle" (click)="_showController=!_showController">
+  <button class="ivpt-column-controller-handle" (click)="openColumnControls()">
     Columns
   </button>
   
@@ -8,7 +8,7 @@
     [ngStyle]="{'visibility': _showController ? 'visible' : 'hidden'}"
   >
     <div class="ivpt-column-select-container">
-      @for (colItem of columns; track colItem; let i=$index) {
+      @for (colItem of draftColumns; track colItem; let i=$index) {
         <div 
           class="ivpt-column-select-item" 
           [ngClass]="{'highlighted': isDraggingOver}"
@@ -28,6 +28,11 @@
           <label for="colItem.field">{{colItem.title}}</label>
       </div>
       }
+    </div>
+    <div class="ivpt-column-controller-actions">
+      <button class="ivpt-column-controller-handle" (click)="saveColumns()">
+        Save
+      </button>
     </div>
   </div>
 </div>

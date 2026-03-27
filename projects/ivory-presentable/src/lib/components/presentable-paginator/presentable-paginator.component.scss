@@ -1,4 +1,4 @@
-@import '../../styles/reference';
+@use '../../styles/reference' as *;
 
 %paging-block-culture {
   display: flex;

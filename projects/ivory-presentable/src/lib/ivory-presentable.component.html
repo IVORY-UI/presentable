@@ -8,6 +8,7 @@
       @if (columnControls) {
         <presentable-column-controls
           [columns]="columnDefs"
+          (updatedColumns)="onColumnsUpdate($event)"
         ></presentable-column-controls>
       }
     </div>

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ClickOutsideDirective } from '../../../helpers/click-outside.directive';
 
 import { FilterManagerService } from '../../../services/filter-manager.service';
 
@@ -10,7 +9,7 @@ import { FilterManagerService } from '../../../services/filter-manager.service';
   templateUrl: './presentable-options-filter.component.html',
   styleUrl: './presentable-options-filter.component.scss',
   standalone: true,
-  imports: [CommonModule, FormsModule, ClickOutsideDirective]
+  imports: [CommonModule, FormsModule]
 })
 export class PresentableOptionsFilterComponent {
 

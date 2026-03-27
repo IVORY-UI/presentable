@@ -47,9 +47,14 @@ export class ColumnSizingService {
     spaceAvailable -= scrollbarWidth;    
     let flexColumns: any = [], nonFlexColumns: any = [];
     columns.forEach((column: any) => {
-      if (!column.forcedWidth) {
-        if(!!column.widthGrow && !column.initialWidth) flexColumns.push(column);
-        else nonFlexColumns.push(column);
+      // Hidden columns should not participate in visible layout width balancing.
+      if (!column.visible || column.forcedWidth) {
+        return;
+      }
+      if (!!column.widthGrow && !column.initialWidth) {
+        flexColumns.push(column);
+      } else {
+        nonFlexColumns.push(column);
       }
     });
 

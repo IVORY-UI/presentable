@@ -1,6 +1,6 @@
-@import './styles/variables';
-@import './styles/reference';
-@import './styles/component';
+@use './styles/variables' as *;
+@use './styles/reference' as *;
+@use './styles/component';
 
 .ivpt-container {
   position: relative;
