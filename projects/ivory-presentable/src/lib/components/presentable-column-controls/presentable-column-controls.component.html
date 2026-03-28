@@ -1,36 +1,58 @@
 <div class="ivpt-column-controller">
-  <button class="ivpt-column-controller-handle" (click)="openColumnControls()">
+  <button type="button" class="ivpt-column-controller-handle" (click)="openColumnControls()">
     Columns
   </button>
-  
-  <div 
+
+  <div
     class="ivpt-column-controller-modal"
     [ngStyle]="{'visibility': _showController ? 'visible' : 'hidden'}"
   >
-    <div class="ivpt-column-select-container">
-      @for (colItem of draftColumns; track colItem; let i=$index) {
-        <div 
-          class="ivpt-column-select-item" 
-          [ngClass]="{'highlighted': isDraggingOver}"
-          [style.top.rem]="(i * 2.4)"
+    <div
+      class="ivpt-column-select-container"
+      (dragleave)="onListDragLeave($event)"
+    >
+      @for (colItem of draftColumns; track colItem; let i = $index) {
+        @if (showDropSlotBefore(i)) {
+          <div
+            class="ivpt-column-drop-slot"
+            role="region"
+            aria-label="Drop column here"
+            (dragover)="onDropSlotDragOver($event, i)"
+            (drop)="onDropSlotDrop($event, i)"
+          ></div>
+        }
+        <div
+          class="ivpt-column-select-item"
           draggable="true"
-          (dragstart)="onDragStart($event, colItem)"
-          (dragover)="onDragOver($event)"
-          (drop)="onDrop($event, i)"
+          (dragstart)="onDragStart($event, colItem, i)"
+          (dragenter)="onDragEnter($event, i)"
+          (dragover)="onDragOver($event, i)"
+          (drop)="onDrop($event)"
+          (dragend)="onDragEnd($event)"
         >
-          <input 
-            type="checkbox" 
-            id="colItem.field" 
-            value="colItem.field" 
+          <span class="ivpt-column-drag-handle" aria-hidden="true" title="Drag to reorder"></span>
+          <input
+            type="checkbox"
+            [id]="'ivpt-col-' + colItem.field"
+            [attr.value]="colItem.field"
             [checked]="colItem.visible"
             (change)="toggleColumn(colItem)"
-          >
-          <label for="colItem.field">{{colItem.title}}</label>
-      </div>
+          />
+          <label [for]="'ivpt-col-' + colItem.field">{{ colItem.title }}</label>
+        </div>
+      }
+      @if (showDropSlotAfterLast()) {
+        <div
+          class="ivpt-column-drop-slot"
+          role="region"
+          aria-label="Drop column here"
+          (dragover)="onDropSlotDragOver($event, draftColumns.length)"
+          (drop)="onDropSlotDrop($event, draftColumns.length)"
+        ></div>
       }
     </div>
     <div class="ivpt-column-controller-actions">
-      <button class="ivpt-column-controller-handle" (click)="saveColumns()">
+      <button type="button" class="ivpt-column-controller-handle" (click)="saveColumns()">
         Save
       </button>
     </div>
