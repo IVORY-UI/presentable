@@ -10,6 +10,7 @@ export * from './lib/components/presentable-column-controls/presentable-column-c
 export * from './lib/components/presentable-paginator/presentable-paginator.component';
 export * from './lib/components/filters/presentable-text-filter/presentable-text-filter.component';
 export * from './lib/components/filters/presentable-options-filter/presentable-options-filter.component';
+export * from './lib/components/filters/presentable-column-header-filter/presentable-column-header-filter.component';
 export * from './lib/components/presentable-row/presentable-row.component';
 export * from './lib/components/presentable-cell-editor/presentable-cell-editor.component';
 export * from './lib/ivory-presentable.component';

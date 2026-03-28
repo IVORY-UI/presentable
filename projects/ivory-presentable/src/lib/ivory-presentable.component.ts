@@ -24,8 +24,7 @@ import { PresentableRowComponent } from './components/presentable-row/presentabl
 import { PresentableColumnResizerComponent } from './components/presentable-column-resizer/presentable-column-resizer.component';
 import { PresentableColumnControlsComponent } from './components/presentable-column-controls/presentable-column-controls.component';
 import { PresentablePaginatorComponent } from './components/presentable-paginator/presentable-paginator.component';
-import { PresentableTextFilterComponent } from './components/filters/presentable-text-filter/presentable-text-filter.component';
-import { PresentableOptionsFilterComponent } from './components/filters/presentable-options-filter/presentable-options-filter.component';
+import { PresentableColumnHeaderFilterComponent } from './components/filters/presentable-column-header-filter/presentable-column-header-filter.component';
 
 @Component({
   selector: "ivory-presentable",
@@ -39,8 +38,7 @@ import { PresentableOptionsFilterComponent } from './components/filters/presenta
     PresentableColumnResizerComponent,
     PresentableColumnControlsComponent,
     PresentablePaginatorComponent,
-    PresentableTextFilterComponent,
-    PresentableOptionsFilterComponent
+    PresentableColumnHeaderFilterComponent
   ]
 })
 export class IvoryPresentableComponent

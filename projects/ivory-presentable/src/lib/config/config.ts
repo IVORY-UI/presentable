@@ -3,7 +3,7 @@ export const PRESENTABLE_CONFIG = {
     height: 45
   },
   filterSpace: {
-    height: 45,
+    height: 0,
   },
   column: {
     headHeight: 45,

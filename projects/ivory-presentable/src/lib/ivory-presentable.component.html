@@ -28,21 +28,19 @@
                 (change)="whenSelectAll($event)"
               />
             </div>
-            <div class="ivpt-filter-cell" style="width: 36px;"></div>
           </div>
         }
         @for (colItem of columnDefs; track colItem; let i=$index) {
           @if (colItem.visible) {
             <div class="ivpt-head-column-cell-wrapper">
-              <div 
-                class="ivpt-head-cell" 
-                role="columnheader" 
-                attr.aria-colindex="{{i+1}}" 
-                (click)="doSort(colItem.field)"
+              <div
+                class="ivpt-head-cell"
+                role="columnheader"
+                attr.aria-colindex="{{i+1}}"
                 [style.width.px]="colItem.width"
               >
-                <div class="ivpt-column-title">
-                  {{colItem.title}}
+                <div class="ivpt-column-title" (click)="doSort(colItem.field)">
+                  <span class="ivpt-column-title__text">{{ colItem.title }}</span>
                   @if (_isSortApplied && _sortAppliedOn===colItem.field) {
                     @if (_sortOrder==='ASC') {
                       <span class="ivpt-sort-identifier"> &uarr;</span>
@@ -52,33 +50,20 @@
                     }
                   }
                 </div>
-                <div class="ivpt-column-ext">
-                  <presentable-column-resizer 
-                    [resizable]="true" 
+                @if (colItem.hasFilter) {
+                  <presentable-column-header-filter
+                    [column]="colItem"
+                    (whenApplied)="handleFilters($event)"
+                  ></presentable-column-header-filter>
+                }
+                <div class="ivpt-column-ext" (click)="$event.stopPropagation()">
+                  <presentable-column-resizer
+                    [resizable]="true"
                     (updatedColumnWidth)="updatedColumnWidth(colItem, $event)"
                   ></presentable-column-resizer>
                 </div>
               </div>
-              <div 
-                class="ivpt-filter-cell"
-                [style.width.px]="colItem.width"
-              >
-                @if (colItem.hasFilter && colItem.filterType==='text') {
-                  <presentable-text-filter
-                    [column]="colItem"
-                    (whenApplied)="handleFilters($event)"
-                  ></presentable-text-filter>
-                }
-                @else if (colItem.hasFilter && colItem.filterType==='options') {
-                  <presentable-options-filter
-                    [column]="colItem"
-                    [taxonomy]="colItem.filterOptions"
-                    (whenApplied)="handleFilters($event)"
-                  ></presentable-options-filter>
-                }
-              </div>
             </div>
-              
           }
         }
       </div>

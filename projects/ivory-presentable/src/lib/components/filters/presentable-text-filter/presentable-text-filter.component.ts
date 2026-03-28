@@ -34,7 +34,6 @@ export class PresentableTextFilterComponent {
   }
 
   applyFilter() {
-    console.log('The keyword is - ', this._keyword);
     this.emitApplied({'column': this.column['field'], 'type': this.column['filterType'], 'keyword': this._keyword});
   }
 

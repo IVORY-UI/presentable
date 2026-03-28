@@ -13,6 +13,7 @@
     "datagrid"
   ],
   "peerDependencies": {
+    "@angular/cdk": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0"
   },

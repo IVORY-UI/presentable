@@ -1,0 +1,104 @@
+<div
+  class="ivpt-head-filter"
+  [class.ivpt-head-filter--open]="_open"
+  [class.ivpt-head-filter--active]="filterActive"
+  (click)="$event.stopPropagation()"
+>
+  <button
+    type="button"
+    class="ivpt-head-filter__trigger"
+    cdkOverlayOrigin
+    #filterOverlayOrigin="cdkOverlayOrigin"
+    [attr.aria-expanded]="_open"
+    [attr.aria-label]="'Filter ' + (column?.title ?? column?.field)"
+    (click)="togglePanel($event)"
+  >
+    <svg
+      class="ivpt-head-filter__icon"
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M4 4h16l-5.5 7v9h-5v-9L4 4z"
+      />
+    </svg>
+  </button>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="filterOverlayOrigin"
+    [cdkConnectedOverlayOpen]="_open"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+    [cdkConnectedOverlayPush]="true"
+    [cdkConnectedOverlayViewportMargin]="8"
+    [cdkConnectedOverlayMinWidth]="220"
+    [cdkConnectedOverlayDisableClose]="true"
+    [cdkConnectedOverlayHasBackdrop]="false"
+    cdkConnectedOverlayPanelClass="ivpt-head-filter-cdk-pane"
+    (overlayOutsideClick)="onOverlayOutsideClick()"
+    (attach)="onOverlayAttach()"
+    (detach)="onOverlayDetach()"
+  >
+    @if (isText) {
+      <div
+        class="ivpt-head-filter__popover ivpt-head-filter__popover--text"
+        role="dialog"
+        [attr.aria-label]="'Filter ' + column.title"
+        (click)="$event.stopPropagation()"
+        (keydown)="onTextKeydown($event)"
+      >
+        <input
+          class="ivpt-head-filter__text-input"
+          type="search"
+          [name]="'filter_' + column.field"
+          [id]="overlayInputId"
+          [(ngModel)]="_keyword"
+          [placeholder]="'Filter ' + column.title"
+          autocomplete="off"
+        />
+        <div class="ivpt-head-filter__actions">
+          <button type="button" class="ivpt-head-filter__btn" (click)="applyText($event)">
+            Apply
+          </button>
+        </div>
+      </div>
+    }
+    @if (isOptions) {
+      <div
+        class="ivpt-head-filter__popover ivpt-head-filter__popover--options"
+        role="dialog"
+        [attr.aria-label]="'Filter ' + column.title + ' by options'"
+        (click)="$event.stopPropagation()"
+      >
+        <ul class="ivpt-head-filter__options">
+          @for (optionItem of _taxonomy; track optionItem.option) {
+            <li class="ivpt-head-filter__option">
+              <input
+                type="checkbox"
+                [name]="optionItem.option"
+                [id]="column.field + '_' + optionItem.option"
+                [(ngModel)]="optionItem.isSelected"
+              />
+              <label
+                class="ivpt-head-filter__option-label"
+                [for]="column.field + '_' + optionItem.option"
+              >
+                {{ optionItem.option }}
+              </label>
+            </li>
+          }
+        </ul>
+        <div class="ivpt-head-filter__actions">
+          <button type="button" class="ivpt-head-filter__btn" (click)="applyOptions($event)">
+            Apply
+          </button>
+        </div>
+      </div>
+    }
+  </ng-template>
+</div>

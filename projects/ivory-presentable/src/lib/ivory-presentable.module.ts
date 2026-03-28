@@ -9,6 +9,7 @@ import { PresentableColumnControlsComponent } from './components/presentable-col
 import { PresentablePaginatorComponent } from './components/presentable-paginator/presentable-paginator.component';
 import { PresentableTextFilterComponent } from './components/filters/presentable-text-filter/presentable-text-filter.component';
 import { PresentableOptionsFilterComponent } from './components/filters/presentable-options-filter/presentable-options-filter.component';
+import { PresentableColumnHeaderFilterComponent } from './components/filters/presentable-column-header-filter/presentable-column-header-filter.component';
 
 /* Directives */
 import { ClickOutsideDirective } from './helpers/click-outside.directive';
@@ -21,6 +22,7 @@ import { ColumnResizeDirective } from './components/presentable-column-resizer/p
     PresentableCellEditorComponent,
     PresentableTextFilterComponent,
     PresentableOptionsFilterComponent,
+    PresentableColumnHeaderFilterComponent,
     PresentableColumnResizerComponent,
     PresentableColumnControlsComponent,
     PresentablePaginatorComponent,
@@ -33,6 +35,7 @@ import { ColumnResizeDirective } from './components/presentable-column-resizer/p
     PresentableCellEditorComponent,
     PresentableTextFilterComponent,
     PresentableOptionsFilterComponent,
+    PresentableColumnHeaderFilterComponent,
     PresentableColumnResizerComponent,
     PresentableColumnControlsComponent,
     PresentablePaginatorComponent,

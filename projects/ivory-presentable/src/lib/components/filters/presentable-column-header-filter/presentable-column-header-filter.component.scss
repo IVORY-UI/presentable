@@ -1,0 +1,123 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/reference' as *;
+
+/* Encapsulation is disabled so pane z-index applies to CDK portaled overlay. */
+presentable-column-header-filter {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cdk-overlay-container .cdk-overlay-pane.ivpt-head-filter-cdk-pane {
+  z-index: 10050;
+}
+
+.ivpt-head-filter {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: #5c6f7e;
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 0.15s ease,
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(200, 219, 238, 0.55);
+      color: $ivpt-text-color;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $ivpt-button-background-highlight;
+      outline-offset: 1px;
+    }
+  }
+
+  &__icon {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  &--open &__trigger,
+  &--active &__trigger {
+    opacity: 1;
+    color: $ivpt-button-background-highlight;
+  }
+
+  &__popover {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: min(280px, 85vw);
+    padding: 0.65rem 0.75rem;
+    background: #fff;
+    border: 1px solid $ivpt-border-color-standard;
+    border-radius: 0.35rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &__popover--text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__text-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid $ivpt-border-color-standard;
+    border-radius: 0.25rem;
+    font-size: 13px;
+  }
+
+  &__options {
+    list-style: none;
+    margin: 0 0 0.65rem 0;
+    padding: 0;
+    max-height: 220px;
+    overflow: auto;
+  }
+
+  &__option {
+    line-height: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__option-label {
+    margin-left: 0.35rem;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+  }
+
+  &__btn {
+    @include button-culture;
+    font-size: 12px;
+  }
+}
+
+.ivpt-head-cell:hover .ivpt-head-filter__trigger {
+  opacity: 1;
+}
