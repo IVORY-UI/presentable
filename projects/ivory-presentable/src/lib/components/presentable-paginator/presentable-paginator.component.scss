@@ -34,4 +34,16 @@
 .ivpt-paginator-button {
   @include button-culture;
   margin: 0 0 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    display: block;
+  }
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.8;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
