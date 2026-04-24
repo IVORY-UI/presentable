@@ -25,6 +25,22 @@ design as well.
 Visit the below URL to check the demo and learn more about the usage.
 https://ivory-presentable.netlify.app/
 
+## 📚 Documentation
+
+**Start here**: [`.agents.md`](./.agents.md) - Complete guide for AI assistants and developers
+
+### Documentation Structure
+- **[Documentation Index](./docs/README.md)** - All documentation
+- **[Quick Start](./docs/getting-started/QUICK_START.md)** - Get started in 5 minutes
+- **[API Reference](./docs/api/API_REFERENCE.md)** - Complete API
+- **[Project Overview](./docs/PROJECT_OVERVIEW.md)** - Architecture & roadmap
+
+### Feature Guides
+- [Column Pinning](./docs/features/COLUMN_PINNING.md) - Pin columns left/right
+- [Keyboard Navigation](./docs/features/KEYBOARD_NAVIGATION.md) - Full keyboard support
+- [Cell Editing](./docs/features/CELL_EDITING.md) - Inline editing
+- [Theming](./docs/customization/THEMING.md) - Custom themes
+
 ## Compatibility & Browser Support
 Ivory Presentable perfectly works with Angular v17 and above. And works well with the latest versions of all major browsers.
 

@@ -25,8 +25,19 @@ design as well.
 Visit the below URL to check the demo and learn more about the usage.
 https://ivory-presentable.netlify.app/
 
-### Column Pinning
-Pin columns to the left or right side of the grid:
+## 📚 Documentation
+
+**Start here**: [`.agents.md`](./projects/ivory-presentable/.agents.md) - Complete guide for AI assistants and developers
+
+### Quick Links
+- **[Getting Started](./projects/ivory-presentable/docs/getting-started/QUICK_START.md)** - 5-minute setup
+- **[API Reference](./projects/ivory-presentable/docs/api/API_REFERENCE.md)** - Complete API
+- **[Features](./projects/ivory-presentable/docs/features/)** - Feature guides
+- **[Theming](./projects/ivory-presentable/docs/customization/THEMING.md)** - Customize appearance
+
+### Quick Examples
+
+#### Column Pinning
 ```typescript
 columnDefs = [
   { field: 'id', title: 'ID', pinned: 'left' },
@@ -36,7 +47,7 @@ columnDefs = [
 ];
 ```
 
-### Keyboard Navigation
+#### Keyboard Navigation
 Navigate the grid using keyboard shortcuts:
 - Arrow keys to move between cells
 - Home/End to jump to first/last cell in row
@@ -44,10 +55,7 @@ Navigate the grid using keyboard shortcuts:
 - Page Up/Down to scroll by page
 - Enter to edit, Escape to cancel
 
-See [KEYBOARD_NAVIGATION.md](./projects/ivory-presentable/KEYBOARD_NAVIGATION.md) for full details.
-
-### Custom Theming
-Customize the grid appearance using CSS variables:
+#### Custom Theming
 ```css
 :root {
   --ivpt-background-standard: #your-color;
@@ -55,8 +63,6 @@ Customize the grid appearance using CSS variables:
   --ivpt-focus-outline: 2px solid #your-accent-color;
 }
 ```
-
-See [THEMING.md](./projects/ivory-presentable/THEMING.md) for all available variables.
 
 ## Compatibility & Browser Support
 Presentable works with Angular v20 and above. The library has been upgraded to use standalone components and modern Angular features. It works well with the latest versions of all major browsers.
