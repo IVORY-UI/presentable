@@ -13,4 +13,5 @@ export interface PresentableColumn {
   maxWidth?: number | string;
   editable?: boolean;
   editor?: CellEditorConfig;
+  pinned?: 'left' | 'right' | null;
 }

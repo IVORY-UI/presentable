@@ -16,10 +16,47 @@ design as well.
 - Row Selection
 - Column Resizing
 - Column Controls
+- Column Pinning/Freezing (Left & Right)
+- Keyboard Navigation (Arrow keys, Home, End, Page Up/Down)
+- Custom Theming via CSS Variables
+- Cell Editing with multiple editor types
 
 ## Usage & Demo
 Visit the below URL to check the demo and learn more about the usage.
 https://ivory-presentable.netlify.app/
+
+### Column Pinning
+Pin columns to the left or right side of the grid:
+```typescript
+columnDefs = [
+  { field: 'id', title: 'ID', pinned: 'left' },
+  { field: 'name', title: 'Name', pinned: 'left' },
+  { field: 'description', title: 'Description' },
+  { field: 'actions', title: 'Actions', pinned: 'right' }
+];
+```
+
+### Keyboard Navigation
+Navigate the grid using keyboard shortcuts:
+- Arrow keys to move between cells
+- Home/End to jump to first/last cell in row
+- Ctrl+Home/End to jump to first/last cell in grid
+- Page Up/Down to scroll by page
+- Enter to edit, Escape to cancel
+
+See [KEYBOARD_NAVIGATION.md](./projects/ivory-presentable/KEYBOARD_NAVIGATION.md) for full details.
+
+### Custom Theming
+Customize the grid appearance using CSS variables:
+```css
+:root {
+  --ivpt-background-standard: #your-color;
+  --ivpt-text-color: #your-text-color;
+  --ivpt-focus-outline: 2px solid #your-accent-color;
+}
+```
+
+See [THEMING.md](./projects/ivory-presentable/THEMING.md) for all available variables.
 
 ## Compatibility & Browser Support
 Presentable works with Angular v20 and above. The library has been upgraded to use standalone components and modern Angular features. It works well with the latest versions of all major browsers.

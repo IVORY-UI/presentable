@@ -22,6 +22,12 @@ export class PresentableRowComponent {
   @Input() rowData: any;
   
   @Input() cellEditingEnabled: boolean = false;
+  
+  @Input() leftPinnedColumns: any[] = [];
+  
+  @Input() centerColumns: any[] = [];
+  
+  @Input() rightPinnedColumns: any[] = [];
 
   @Output() onSelection = new EventEmitter<any>();
   

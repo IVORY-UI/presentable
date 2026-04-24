@@ -19,7 +19,7 @@
       <!-- Column headings of the table -->
       <div #datagridHeaderWrapper class="ivpt-content-head" role="row" aria-rowindex="1">
         @if (recordSelection) {
-          <div class="ivpt-head-column-cell-wrapper">
+          <div class="ivpt-head-column-cell-wrapper ivpt-pinned-left">
             <div #ivptSelectAll class="ivpt-selectall-cell">
               <input type="checkbox"
                 class="ivpt-all-select-checkbox"
@@ -30,13 +30,91 @@
             </div>
           </div>
         }
-        @for (colItem of columnDefs; track colItem; let i=$index) {
+        
+        <!-- Left Pinned Columns -->
+        @for (colItem of leftPinnedColumns; track colItem; let i=$index) {
+          @if (colItem.visible) {
+            <div class="ivpt-head-column-cell-wrapper ivpt-pinned-left">
+              <div
+                class="ivpt-head-cell"
+                role="columnheader"
+                attr.aria-colindex="{{i+1}}"
+                [style.width.px]="colItem.width"
+              >
+                <div class="ivpt-column-title" (click)="doSort(colItem.field)">
+                  <span class="ivpt-column-title__text">{{ colItem.title }}</span>
+                  @if (_isSortApplied && _sortAppliedOn===colItem.field) {
+                    @if (_sortOrder==='ASC') {
+                      <span class="ivpt-sort-identifier"> &uarr;</span>
+                    }
+                    @else if (_sortOrder==='DESC') {
+                      <span class="ivpt-sort-identifier"> &darr;</span>
+                    }
+                  }
+                </div>
+                @if (colItem.hasFilter) {
+                  <presentable-column-header-filter
+                    [column]="colItem"
+                    (whenApplied)="handleFilters($event)"
+                  ></presentable-column-header-filter>
+                }
+                <div class="ivpt-column-ext" (click)="$event.stopPropagation()">
+                  <presentable-column-resizer
+                    [resizable]="true"
+                    (updatedColumnWidth)="updatedColumnWidth(colItem, $event)"
+                  ></presentable-column-resizer>
+                </div>
+              </div>
+            </div>
+          }
+        }
+        
+        <!-- Center (Scrollable) Columns -->
+        @for (colItem of centerColumns; track colItem; let i=$index) {
           @if (colItem.visible) {
             <div class="ivpt-head-column-cell-wrapper">
               <div
                 class="ivpt-head-cell"
                 role="columnheader"
-                attr.aria-colindex="{{i+1}}"
+                attr.aria-colindex="{{leftPinnedColumns.length + i + 1}}"
+                [style.width.px]="colItem.width"
+              >
+                <div class="ivpt-column-title" (click)="doSort(colItem.field)">
+                  <span class="ivpt-column-title__text">{{ colItem.title }}</span>
+                  @if (_isSortApplied && _sortAppliedOn===colItem.field) {
+                    @if (_sortOrder==='ASC') {
+                      <span class="ivpt-sort-identifier"> &uarr;</span>
+                    }
+                    @else if (_sortOrder==='DESC') {
+                      <span class="ivpt-sort-identifier"> &darr;</span>
+                    }
+                  }
+                </div>
+                @if (colItem.hasFilter) {
+                  <presentable-column-header-filter
+                    [column]="colItem"
+                    (whenApplied)="handleFilters($event)"
+                  ></presentable-column-header-filter>
+                }
+                <div class="ivpt-column-ext" (click)="$event.stopPropagation()">
+                  <presentable-column-resizer
+                    [resizable]="true"
+                    (updatedColumnWidth)="updatedColumnWidth(colItem, $event)"
+                  ></presentable-column-resizer>
+                </div>
+              </div>
+            </div>
+          }
+        }
+        
+        <!-- Right Pinned Columns -->
+        @for (colItem of rightPinnedColumns; track colItem; let i=$index) {
+          @if (colItem.visible) {
+            <div class="ivpt-head-column-cell-wrapper ivpt-pinned-right">
+              <div
+                class="ivpt-head-cell"
+                role="columnheader"
+                attr.aria-colindex="{{leftPinnedColumns.length + centerColumns.length + i + 1}}"
                 [style.width.px]="colItem.width"
               >
                 <div class="ivpt-column-title" (click)="doSort(colItem.field)">
@@ -73,6 +151,9 @@
         @for (dataItem of currVisibleData; track dataItem; let i=$index) {
           <presentable-row
             [columns]="columnDefs"
+            [leftPinnedColumns]="leftPinnedColumns"
+            [centerColumns]="centerColumns"
+            [rightPinnedColumns]="rightPinnedColumns"
             [rowIndex]="i"
             [rowSelectionEnabled]="recordSelection"
             [cellEditingEnabled]="cellEditing"

@@ -35,7 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
       'hasFilter': true,
       'filterType': 'text',
       'editable': true,
-      'editor': { type: 'text' }
+      'editor': { type: 'text' },
+      'pinned': 'left'
     },
     { 
       'field': 'age',

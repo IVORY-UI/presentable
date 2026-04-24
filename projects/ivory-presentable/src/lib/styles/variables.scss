@@ -1,9 +1,31 @@
-// Colors
-$ivpt-border-color-standard: #CDD4D9;
-$ivpt-border-color-resize: #C9D7E1;
-$ivpt-background-standard: #EEF3F8;
-$ivpt-button-background-standard: #C8DBEE;
-$ivpt-button-background-highlight: #859FB4;
-$ivpt-text-color: #212529;
+// CSS Custom Properties for theming
+:root {
+  --ivpt-border-color-standard: #CDD4D9;
+  --ivpt-border-color-resize: #C9D7E1;
+  --ivpt-background-standard: #EEF3F8;
+  --ivpt-background-row-hover: #F8FBFD;
+  --ivpt-background-row-selected: #E3F2FD;
+  --ivpt-button-background-standard: #C8DBEE;
+  --ivpt-button-background-highlight: #859FB4;
+  --ivpt-text-color: #212529;
+  --ivpt-text-color-secondary: #6C757D;
+  --ivpt-pinned-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  --ivpt-focus-outline: 2px solid #2196F3;
+  --ivpt-focus-outline-offset: -2px;
+}
+
+// SCSS variables (fallback to CSS custom properties)
+$ivpt-border-color-standard: var(--ivpt-border-color-standard);
+$ivpt-border-color-resize: var(--ivpt-border-color-resize);
+$ivpt-background-standard: var(--ivpt-background-standard);
+$ivpt-background-row-hover: var(--ivpt-background-row-hover);
+$ivpt-background-row-selected: var(--ivpt-background-row-selected);
+$ivpt-button-background-standard: var(--ivpt-button-background-standard);
+$ivpt-button-background-highlight: var(--ivpt-button-background-highlight);
+$ivpt-text-color: var(--ivpt-text-color);
+$ivpt-text-color-secondary: var(--ivpt-text-color-secondary);
+$ivpt-pinned-shadow: var(--ivpt-pinned-shadow);
+$ivpt-focus-outline: var(--ivpt-focus-outline);
+$ivpt-focus-outline-offset: var(--ivpt-focus-outline-offset);
 
 // sizes

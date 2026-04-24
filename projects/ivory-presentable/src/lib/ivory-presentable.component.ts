@@ -9,6 +9,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   OnDestroy,
+  HostListener,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -64,6 +65,15 @@ export class IvoryPresentableComponent
   // Grid rendering
   _isGridReady = false;
 
+  // Column pinning
+  leftPinnedColumns: any[] = [];
+  centerColumns: any[] = [];
+  rightPinnedColumns: any[] = [];
+
+  // Keyboard navigation
+  focusedCell: { rowIndex: number; colIndex: number } | null = null;
+  private keyboardNavigationEnabled = true;
+
   // data params when the data source is remote (server-side)
   remoteDataParams: any = {
     filterConfig: {},
@@ -83,6 +93,7 @@ export class IvoryPresentableComponent
 
   @Input() set columnDefs(columnDefs: any) {
     this._columnDefs = this.columnSizing.processColumnOptions(columnDefs);
+    this.organizeColumnsByPinning();
   }
   get columnDefs() {
     return this._columnDefs;
@@ -160,6 +171,7 @@ export class IvoryPresentableComponent
 
   ngOnInit() {
     this.addListeners();
+    this.setupKeyboardNavigation();
   }
 
   processData() {
@@ -209,7 +221,24 @@ export class IvoryPresentableComponent
 
   onColumnsUpdate(columns: any[]) {
     this._columnDefs = this.columnSizing.processColumnOptions(columns);
+    this.organizeColumnsByPinning();
     this.columnSizing.reCalcWidth.next(true);
+  }
+
+  organizeColumnsByPinning() {
+    if (!this._columnDefs) return;
+    
+    this.leftPinnedColumns = this._columnDefs.filter((col: any) => col.pinned === 'left');
+    this.rightPinnedColumns = this._columnDefs.filter((col: any) => col.pinned === 'right');
+    this.centerColumns = this._columnDefs.filter((col: any) => !col.pinned);
+  }
+
+  getPinnedLeftWidth(): number {
+    return this.leftPinnedColumns.reduce((sum, col) => sum + (col.width || 150), 0);
+  }
+
+  getPinnedRightWidth(): number {
+    return this.rightPinnedColumns.reduce((sum, col) => sum + (col.width || 150), 0);
   }
 
   // Handles sorting
@@ -346,6 +375,117 @@ export class IvoryPresentableComponent
   
   onCellEdit(event: any) {
     this.cellEdit.emit(event);
+  }
+
+  // Keyboard Navigation
+  setupKeyboardNavigation() {
+    // Will be initialized after view init
+  }
+
+  @HostListener('keydown', ['$event'])
+  handleKeyboardNavigation(event: KeyboardEvent) {
+    if (!this.keyboardNavigationEnabled || !this.currVisibleData?.length) return;
+
+    const target = event.target as HTMLElement;
+    const isInInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT';
+    
+    // Don't interfere with input fields unless it's Escape or Enter
+    if (isInInput && !['Escape', 'Enter'].includes(event.key)) return;
+
+    const visibleColumns = this._columnDefs?.filter((col: any) => col.visible) || [];
+    const totalRows = this.currVisibleData.length;
+    const totalCols = visibleColumns.length;
+
+    if (!this.focusedCell) {
+      this.focusedCell = { rowIndex: 0, colIndex: 0 };
+    }
+
+    let { rowIndex, colIndex } = this.focusedCell;
+    let handled = false;
+
+    switch (event.key) {
+      case 'ArrowUp':
+        if (rowIndex > 0) {
+          rowIndex--;
+          handled = true;
+        }
+        break;
+      case 'ArrowDown':
+        if (rowIndex < totalRows - 1) {
+          rowIndex++;
+          handled = true;
+        }
+        break;
+      case 'ArrowLeft':
+        if (colIndex > 0) {
+          colIndex--;
+          handled = true;
+        }
+        break;
+      case 'ArrowRight':
+        if (colIndex < totalCols - 1) {
+          colIndex++;
+          handled = true;
+        }
+        break;
+      case 'Home':
+        if (event.ctrlKey) {
+          rowIndex = 0;
+          colIndex = 0;
+        } else {
+          colIndex = 0;
+        }
+        handled = true;
+        break;
+      case 'End':
+        if (event.ctrlKey) {
+          rowIndex = totalRows - 1;
+          colIndex = totalCols - 1;
+        } else {
+          colIndex = totalCols - 1;
+        }
+        handled = true;
+        break;
+      case 'PageUp':
+        rowIndex = Math.max(0, rowIndex - this.recordsPerPage);
+        handled = true;
+        break;
+      case 'PageDown':
+        rowIndex = Math.min(totalRows - 1, rowIndex + this.recordsPerPage);
+        handled = true;
+        break;
+      case 'Enter':
+        if (isInInput) {
+          // Exit edit mode
+          (event.target as HTMLElement).blur();
+          handled = true;
+        }
+        break;
+      case 'Escape':
+        if (isInInput) {
+          // Cancel edit
+          (event.target as HTMLElement).blur();
+          handled = true;
+        }
+        break;
+    }
+
+    if (handled) {
+      event.preventDefault();
+      this.focusedCell = { rowIndex, colIndex };
+      this.focusCell(rowIndex, colIndex);
+    }
+  }
+
+  focusCell(rowIndex: number, colIndex: number) {
+    // Focus the cell element
+    const cellSelector = `[data-row-index="${rowIndex}"][data-col-index="${colIndex}"]`;
+    const cellElement = this.datagridBodyWrapper?.nativeElement.querySelector(cellSelector);
+    
+    if (cellElement) {
+      cellElement.focus();
+      cellElement.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
   }
 
   ngOnDestroy() {

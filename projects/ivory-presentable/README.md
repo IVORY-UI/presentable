@@ -16,6 +16,10 @@ design as well.
 - Row Selection
 - Column Resizing
 - Column Controls
+- Column Pinning/Freezing (Left & Right)
+- Keyboard Navigation (Arrow keys, Home, End, Page Up/Down)
+- Custom Theming via CSS Variables
+- Cell Editing with multiple editor types
 
 ## Usage & Demo
 Visit the below URL to check the demo and learn more about the usage.

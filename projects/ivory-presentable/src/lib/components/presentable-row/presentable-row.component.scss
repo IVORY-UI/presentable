@@ -6,12 +6,43 @@
   @include row-culture;
   border-bottom: 1px solid $ivpt-border-color-standard;
   &:hover {
-    background-color: #eaf5ff;
+    background-color: $ivpt-background-row-hover;
   }
   .ivpt-content-cell {
     @include cell-culture;
     @include cell-wrap-culture;
     flex-shrink: 0;
+    
+    // Keyboard navigation focus
+    &:focus {
+      outline: $ivpt-focus-outline;
+      outline-offset: $ivpt-focus-outline-offset;
+      background-color: $ivpt-background-row-selected;
+    }
+    
+    // Pinned cell styles
+    &.ivpt-pinned-left {
+      position: sticky;
+      left: 0;
+      z-index: 5;
+      background-color: inherit;
+      box-shadow: $ivpt-pinned-shadow;
+    }
+    
+    &.ivpt-pinned-right {
+      position: sticky;
+      right: 0;
+      z-index: 5;
+      background-color: inherit;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.ivpt-content-row:hover .ivpt-content-cell {
+  &.ivpt-pinned-left,
+  &.ivpt-pinned-right {
+    background-color: $ivpt-background-row-hover;
   }
 }
 

@@ -7,6 +7,13 @@
   width: 100%;
   border: 1px solid $ivpt-border-color-standard;
   border-radius: 0.5rem;
+  
+  // Enable keyboard navigation focus
+  &:focus-within {
+    outline: $ivpt-focus-outline;
+    outline-offset: $ivpt-focus-outline-offset;
+  }
+  
   .ivpt-header {
     display: flex;
     justify-content: flex-end;
@@ -81,6 +88,30 @@
     margin-left: auto;
     .ivpt-sort-identifier {
       padding: 0 5px;
+    }
+  }
+  
+  // Pinned column styles
+  &.ivpt-pinned-left {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    box-shadow: $ivpt-pinned-shadow;
+    
+    .ivpt-selectall-cell,
+    .ivpt-head-cell {
+      background-color: $ivpt-background-standard;
+    }
+  }
+  
+  &.ivpt-pinned-right {
+    position: sticky;
+    right: 0;
+    z-index: 10;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    
+    .ivpt-head-cell {
+      background-color: $ivpt-background-standard;
     }
   }
 }

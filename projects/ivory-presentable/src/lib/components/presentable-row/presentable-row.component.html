@@ -5,7 +5,7 @@
   attr.row-index="{{rowIndex}}"
 >
   @if (rowSelectionEnabled) {
-    <div class="ivpt-content-cell" style="width: 36px;" role="gridcell">
+    <div class="ivpt-content-cell ivpt-pinned-left" style="width: 36px;" role="gridcell">
       <div class="ivpt-row-select" role="presentation" style="width: inherit;">
         <input type="checkbox"
           class="ivpt-row-select-checkbox"
@@ -17,15 +17,80 @@
       </div>
     </div>
   }
-  @for (colItem of columns; track colItem; let i=$index) {
+  
+  <!-- Left Pinned Columns -->
+  @for (colItem of leftPinnedColumns; track colItem; let i=$index) {
+    @if (colItem.visible) {
+      <div 
+        class="ivpt-content-cell ivpt-pinned-left" 
+        [class.ivpt-cell-editable]="cellEditingEnabled && colItem.editable"
+        [class.ivpt-cell-editing]="isCellEditing(colItem.field)"
+        role="gridcell" 
+        attr.aria-colindex="{{i+1}}"
+        attr.data-row-index="{{rowIndex}}"
+        attr.data-col-index="{{i}}"
+        [style.width.px]="colItem.width"
+        [attr.tabindex]="0"
+        (dblclick)="startCellEdit(colItem, $event)"
+      >
+        @if (isCellEditing(colItem.field)) {
+          <presentable-cell-editor
+            [value]="rowData[colItem.field]"
+            [editorConfig]="colItem.editor || { type: 'text' }"
+            [field]="colItem.field"
+            (editComplete)="onCellEditComplete(colItem, $event)"
+            (editCancel)="onCellEditCancel()"
+          ></presentable-cell-editor>
+        } @else {
+          {{rowData[colItem.field]}}
+        }
+      </div>
+    }  
+  }
+  
+  <!-- Center (Scrollable) Columns -->
+  @for (colItem of centerColumns; track colItem; let i=$index) {
     @if (colItem.visible) {
       <div 
         class="ivpt-content-cell" 
         [class.ivpt-cell-editable]="cellEditingEnabled && colItem.editable"
         [class.ivpt-cell-editing]="isCellEditing(colItem.field)"
         role="gridcell" 
-        attr.aria-colindex="{{i+1}}" 
+        attr.aria-colindex="{{leftPinnedColumns.length + i + 1}}"
+        attr.data-row-index="{{rowIndex}}"
+        attr.data-col-index="{{leftPinnedColumns.length + i}}"
         [style.width.px]="colItem.width"
+        [attr.tabindex]="0"
+        (dblclick)="startCellEdit(colItem, $event)"
+      >
+        @if (isCellEditing(colItem.field)) {
+          <presentable-cell-editor
+            [value]="rowData[colItem.field]"
+            [editorConfig]="colItem.editor || { type: 'text' }"
+            [field]="colItem.field"
+            (editComplete)="onCellEditComplete(colItem, $event)"
+            (editCancel)="onCellEditCancel()"
+          ></presentable-cell-editor>
+        } @else {
+          {{rowData[colItem.field]}}
+        }
+      </div>
+    }  
+  }
+  
+  <!-- Right Pinned Columns -->
+  @for (colItem of rightPinnedColumns; track colItem; let i=$index) {
+    @if (colItem.visible) {
+      <div 
+        class="ivpt-content-cell ivpt-pinned-right" 
+        [class.ivpt-cell-editable]="cellEditingEnabled && colItem.editable"
+        [class.ivpt-cell-editing]="isCellEditing(colItem.field)"
+        role="gridcell" 
+        attr.aria-colindex="{{leftPinnedColumns.length + centerColumns.length + i + 1}}"
+        attr.data-row-index="{{rowIndex}}"
+        attr.data-col-index="{{leftPinnedColumns.length + centerColumns.length + i}}"
+        [style.width.px]="colItem.width"
+        [attr.tabindex]="0"
         (dblclick)="startCellEdit(colItem, $event)"
       >
         @if (isCellEditing(colItem.field)) {

@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/cdk/overlay-prebuilt.css';
+
+/* Example: Custom theme for Ivory Presentable */
+/* Uncomment to apply a custom theme */
+/*
+:root {
+  --ivpt-border-color-standard: #D1D5DB;
+  --ivpt-background-standard: #F3F4F6;
+  --ivpt-background-row-hover: #E5E7EB;
+  --ivpt-background-row-selected: #DBEAFE;
+  --ivpt-button-background-standard: #3B82F6;
+  --ivpt-button-background-highlight: #2563EB;
+  --ivpt-text-color: #111827;
+  --ivpt-focus-outline: 2px solid #3B82F6;
+}
+*/
+
